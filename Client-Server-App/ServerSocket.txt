@@ -1,0 +1,213 @@
+﻿using UnityEngine;
+using System.Collections;
+using System;
+using System.Text;
+using System.Net;
+using System.Net.Sockets;
+using System.Threading;
+
+public class StreamSocket : MonoBehaviour
+{
+    [Header("Camera Settings")]
+    public Camera Camera1;
+    public Camera Camera2;
+	public Texture text1;
+    
+    [Tooltip("Порт")]
+    [SerializeField]
+    private int serverPort = 11100;
+    [Tooltip("Pixel width for video recording")]
+    public int frameWidth = 1280;
+    [Tooltip("Pixel Height for video recording")]
+    public int frameHeight = 720;
+    [Tooltip("Anti aliasing parameter of video")]
+    public int targetFrameRate = 30;
+    [Tooltip("Quality of recorded video")]
+    public String GetHostEntryAddr = "localhost";
+    [Tooltip("localhost")]
+
+
+
+    //-Переменные для рендера--//
+    RenderTexture renderTexture;
+	Texture2D screenShot;
+    byte[] buf = new byte[1024 * 1024];
+    byte[] testMsg = new byte[1024];
+    //-------------------------//
+
+    //-Переменные для сокета---//
+    Socket handler;
+    Socket sListener;
+    bool connected = false;
+    //-------------------------//
+
+    //---------Хлам------------//
+    int i = 0;
+    bool startRender = true;
+    bool stopSocket = false;
+    //-------------------------//
+
+    // Use this for initialization
+    void Start()
+    {
+        Thread socketThread = new Thread(startSocket);
+        socketThread.Start();
+	}
+    
+    void Update()
+    {
+        
+    }
+
+    void OnGUI()
+    {
+        if (GUI.Button(new Rect(20, 20, 50, 50), "Stop"))
+        {
+            handler.Shutdown(SocketShutdown.Both);
+            handler.Close();
+        }
+    }
+    
+    void OnPostRender()
+    {
+        //renderT();
+    }
+
+    void OnDestroy()
+    {
+        handler.Shutdown(SocketShutdown.Both);
+        handler.Close();
+    }
+
+    void renderT()
+    {
+        renderTexture = RenderTexture.GetTemporary(frameWidth, frameHeight, 24);
+		RenderTexture.active = renderTexture;
+        Camera1.targetTexture = renderTexture;
+        Camera1.Render();
+        screenShot.ReadPixels(new Rect(0,0, frameWidth, frameHeight),0,0);
+        screenShot.Apply();
+        buf = screenShot.EncodeToPNG();
+    }
+
+    void startSocket()
+    {   
+        IPHostEntry ipHost = Dns.GetHostEntry(GetHostEntryAddr);
+        IPAddress ipAddr = ipHost.AddressList[0];
+        IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, serverPort);
+
+        sListener = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+
+        try
+        {
+            sListener.Bind(ipEndPoint);
+            sListener.Listen(10);
+
+            while(true)
+            {
+                handler = sListener.Accept();
+                //handler.Send(buf);
+                testMsg = Encoding.UTF8.GetBytes("teeeest OK\n");
+                handler.Send(testMsg);
+                handler.Shutdown(SocketShutdown.Both);
+                handler.Close();
+            }
+
+        }
+        catch (SocketException) 
+        {
+            connected = false;
+            startSocket();
+        }
+        finally
+        {
+            //Console.ReadLine();
+        }
+       
+
+    }
+
+    void startSocket1()
+    {   
+        if (!connected)
+        {
+            connected = true;
+            IPHostEntry ipHost = Dns.GetHostEntry(GetHostEntryAddr);
+            IPAddress ipAddr = ipHost.AddressList[0];
+            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, serverPort);
+
+            sListener = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+
+            try
+            {
+                sListener.Bind(ipEndPoint);
+                sListener.Listen(10);
+
+                while(true)
+                {
+                    handler = sListener.Accept();
+                    //handler.Send(buf);
+                    testMsg = Encoding.UTF8.GetBytes("teeeest OK\n");
+                    handler.Send(testMsg);
+                    handler.Shutdown(SocketShutdown.Both);
+                    handler.Close();
+                }
+
+            }
+            catch (SocketException) 
+            {
+                connected = false;
+                startSocket1();
+            }
+            finally
+            {
+                //Console.ReadLine();
+            }
+        }
+        else
+        {
+            while(true)
+            {
+                handler = sListener.Accept();
+                handler.Send(buf);
+                handler.Shutdown(SocketShutdown.Both);
+                handler.Close();
+            }
+        }
+       
+
+    }
+
+    void takeScreenShot()
+	{
+		//Texture2D cam1Tex;
+		//cam1Tex.filterMode = FilterMode.Point;
+		//cam1Tex.Apply();
+		//GameObject.Find ("/CameraSocket/Cam1").GetComponent<RawImage>().texture = cam1Tex;
+
+		//cam1Tex = new Texture2D(256,256,TextureFormat.ARGB32,false);
+		/// Camera 1
+		/// Rendering
+		Texture2D screenShot;
+		screenShot = new Texture2D(256,256,TextureFormat.ARGB32,false);;
+
+		screenShot.Apply();
+		//screenShot = (Texture2D)text1;
+		byte[] bytes = screenShot.EncodeToPNG();
+		string filename = "Cam1Shot_" + i + ".png";
+		System.IO.File.WriteAllBytes(filename, bytes);
+		i++;
+    }
+
+
+
+
+    IEnumerator TestCoroutine()
+    {
+        while (true)
+        {
+            yield return null;
+        }
+    }
+}
+
