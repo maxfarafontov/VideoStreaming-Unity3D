@@ -148,6 +148,7 @@ namespace Client_Server_App
                 toolStripProgressBar1.Value = 50;
                 //localHost = textBox0.Text;
             }));
+            ////
 
             try
             {
