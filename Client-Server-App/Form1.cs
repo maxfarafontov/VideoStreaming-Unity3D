@@ -20,11 +20,11 @@ namespace Client_Server_App
 
         // --------------Variables----------------//
         //String message = "";
-        bool stopServer = false;
+        bool stopClient = false;
         bool send = false;
         string logMessage = "";
         private BackgroundWorker backgroundWorker;
-        //private Thread socketThread;
+        private Thread socketThread;
         StartSocketServer socketServer = new StartSocketServer();
 
         delegate void updateInfo();
@@ -40,11 +40,7 @@ namespace Client_Server_App
             InitializeComponent();
         }
 
-        void timer_Tick(object sender, EventArgs e)
-        {
-            //В текстбокс выводим значение timerCounter увеличенное на 1
-            this.logBox.Text = (++timerCounter).ToString();
-        }
+        
 
         private void socketTask()
         {
@@ -72,25 +68,25 @@ namespace Client_Server_App
         }
 
         //Start Client Button
-        //private void button1_Click(object sender, EventArgs e)
-        //{
-        //    Thread socketServer = new Thread(socketTask);
-        //    socketServer.Start();
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Thread socketServer = new Thread(socketTask);
+            socketServer.Start();
 
-        //    timer.Interval = 1000; //интервал между срабатываниями 1000 миллисекунд
-        //    timer.Tick += new EventHandler(timer_Tick); //подписываемся на события Tick
-        //    timer.Start();
+            //timer.Interval = 1000; //интервал между срабатываниями 1000 миллисекунд
+            //timer.Tick += new EventHandler(timer_Tick); //подписываемся на события Tick
+            //timer.Start();
 
-        //}
+        }
 
         //Stop Button
-        //private void button2_Click(object sender, EventArgs e)
-        //{
+        private void button2_Click(object sender, EventArgs e)
+        {
             //Stop Thread
-        //    socketServer.stopServer();
-            //thread.Abort();
-            //thread.Join(500);
-        //}
+            socketServer.stopServer();
+            //socketServer.Abort();
+            //socketServer.Join(500);
+        }
 
         //this.Invoke(new updateInfo(updateLabels), new object[] { });
         private void button3_Click(object sender, EventArgs e)
@@ -107,7 +103,6 @@ namespace Client_Server_App
         // Client Start
         private void btnConnect_Click(object sender, EventArgs e)
         {
-
             Thread socketClient = new Thread(socketClientThread);
             socketClient.Start();
         }
@@ -115,7 +110,8 @@ namespace Client_Server_App
         // Client Stop
         private void btnDisconnect_Click(object sender, EventArgs e)
         {
-            stopServer = true;
+            stopClient = true;
+            //socketServer.stopServer();
         }
 
 
@@ -149,7 +145,7 @@ namespace Client_Server_App
                 sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 
                 sender.Connect(ipEndPoint);
-
+                
                 BeginInvoke(new MethodInvoker(delegate
                 {
                     if (sender.Connected)
@@ -157,6 +153,7 @@ namespace Client_Server_App
                         btnConnect.Enabled = false;
                         btnDisconnect.Enabled = true;
                         statusLabel.Text = "Подключен к серверу";
+                        logMessage += "Connected! " + Environment.NewLine;
                         toolStripProgressBar1.Value = 100;
                     }
                     else
@@ -168,8 +165,9 @@ namespace Client_Server_App
 
                 while (true)
                 {
-                    if (!stopServer)
+                    if (!stopClient)
                     {
+                        logMessage += "Start while if" + Environment.NewLine;
                         //int bytesRec = sender.Receive(imageBuffer);
                         //string filename = "Cam1Shot_" + 1 + ".png";
                         //System.IO.File.WriteAllBytes(filename, bytes);
@@ -198,7 +196,7 @@ namespace Client_Server_App
                             toolStripProgressBar1.Value = 0;
                             btnConnect.Enabled = true;
                             btnDisconnect.Enabled = false;
-                            stopServer = false;
+                            stopClient = false;
                         }));
                         break;
                     }
@@ -214,8 +212,7 @@ namespace Client_Server_App
             }
             finally
             {
-                BeginInvoke(new MethodInvoker(delegate
-                {
+                BeginInvoke(new MethodInvoker(delegate{
                     btnConnect.Enabled = true;
                 }));
             }
@@ -233,7 +230,10 @@ namespace Client_Server_App
             //logBox.Text += "Добавляем значение\n + Environment.NewLine";
             //statusLabel.Text = "Готов уже " + i++ + " секунд";
             logBox.Text = logMessage;
+            //this.logBox.Text = (++timerCounter).ToString();
         }
+
+        
 
         /// <summary>
         /// Проверка правильности ввода порта в TextBox

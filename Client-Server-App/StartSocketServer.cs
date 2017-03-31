@@ -14,10 +14,6 @@ namespace Client_Server_App
 
         public void startServer(int port)
         {
-
-            //SetTextBox4("text");
-            //formTextBox4 = "1231rt2gr";
-            //int port = 11000;
             string ipServer = "localhost";
 
             // Устанавливаем для сокета локальную конечную точку
@@ -29,15 +25,14 @@ namespace Client_Server_App
             Socket sListener = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 
             // Назначаем сокет локальной конечной точке и слушаем входящие сокеты
-
             sListener.Bind(ipEndPoint);
             sListener.Listen(10);
 
             // Начинаем слушать соединения
             while (checkEnd)
             {
-                Console.WriteLine("Ожидаем соединение через порт 11000: ", ipEndPoint);
-                message = "Ожидаем соединение через порт 11000: ";
+                Console.WriteLine("Ожидаем соединение через порт ", port," : ", ipEndPoint);
+                message = "Ожидаем соединение через порт " + port + " : ";
                 logMessage += message += ipEndPoint;
 
                 // Программа приостанавливается, ожидая входящее соединение
