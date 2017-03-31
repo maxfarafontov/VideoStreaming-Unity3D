@@ -43,6 +43,7 @@
             this.btnDisconnect = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.менюToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -64,8 +65,6 @@
             this.portBox10 = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.portBox7 = new System.Windows.Forms.TextBox();
-            this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -78,7 +77,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(258, 85);
+            this.label3.Location = new System.Drawing.Point(12, 113);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(52, 13);
             this.label3.TabIndex = 14;
@@ -86,7 +85,7 @@
             // 
             // portBox3
             // 
-            this.portBox3.Location = new System.Drawing.Point(316, 82);
+            this.portBox3.Location = new System.Drawing.Point(70, 110);
             this.portBox3.MaxLength = 5;
             this.portBox3.Name = "portBox3";
             this.portBox3.Size = new System.Drawing.Size(59, 20);
@@ -96,7 +95,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(258, 59);
+            this.label2.Location = new System.Drawing.Point(12, 87);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(52, 13);
             this.label2.TabIndex = 12;
@@ -104,7 +103,7 @@
             // 
             // portBox2
             // 
-            this.portBox2.Location = new System.Drawing.Point(316, 56);
+            this.portBox2.Location = new System.Drawing.Point(70, 84);
             this.portBox2.MaxLength = 5;
             this.portBox2.Name = "portBox2";
             this.portBox2.Size = new System.Drawing.Size(59, 20);
@@ -113,7 +112,7 @@
             // 
             // portBox1
             // 
-            this.portBox1.Location = new System.Drawing.Point(316, 30);
+            this.portBox1.Location = new System.Drawing.Point(70, 58);
             this.portBox1.MaxLength = 5;
             this.portBox1.Name = "portBox1";
             this.portBox1.Size = new System.Drawing.Size(59, 20);
@@ -122,7 +121,7 @@
             // 
             // btnConnect
             // 
-            this.btnConnect.Location = new System.Drawing.Point(166, 30);
+            this.btnConnect.Location = new System.Drawing.Point(149, 30);
             this.btnConnect.Name = "btnConnect";
             this.btnConnect.Size = new System.Drawing.Size(75, 23);
             this.btnConnect.TabIndex = 18;
@@ -147,7 +146,7 @@
             // 
             // btnDisconnect
             // 
-            this.btnDisconnect.Location = new System.Drawing.Point(166, 58);
+            this.btnDisconnect.Location = new System.Drawing.Point(149, 58);
             this.btnDisconnect.Name = "btnDisconnect";
             this.btnDisconnect.Size = new System.Drawing.Size(75, 23);
             this.btnDisconnect.TabIndex = 24;
@@ -172,6 +171,11 @@
             this.statusLabel.Name = "statusLabel";
             this.statusLabel.Size = new System.Drawing.Size(39, 17);
             this.statusLabel.Text = "Status";
+            // 
+            // toolStripProgressBar1
+            // 
+            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
+            this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 16);
             // 
             // backgroundWorker1
             // 
@@ -215,13 +219,13 @@
             // 
             this.textBox0.Location = new System.Drawing.Point(15, 30);
             this.textBox0.Name = "textBox0";
-            this.textBox0.Size = new System.Drawing.Size(134, 20);
+            this.textBox0.Size = new System.Drawing.Size(114, 20);
             this.textBox0.TabIndex = 29;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(258, 35);
+            this.label1.Location = new System.Drawing.Point(12, 63);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(52, 13);
             this.label1.TabIndex = 30;
@@ -230,7 +234,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(258, 111);
+            this.label4.Location = new System.Drawing.Point(12, 139);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(52, 13);
             this.label4.TabIndex = 36;
@@ -239,7 +243,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(258, 137);
+            this.label5.Location = new System.Drawing.Point(12, 165);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(52, 13);
             this.label5.TabIndex = 35;
@@ -247,7 +251,7 @@
             // 
             // portBox5
             // 
-            this.portBox5.Location = new System.Drawing.Point(316, 134);
+            this.portBox5.Location = new System.Drawing.Point(70, 162);
             this.portBox5.MaxLength = 5;
             this.portBox5.Name = "portBox5";
             this.portBox5.Size = new System.Drawing.Size(59, 20);
@@ -256,7 +260,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(258, 163);
+            this.label6.Location = new System.Drawing.Point(12, 191);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(52, 13);
             this.label6.TabIndex = 33;
@@ -264,7 +268,7 @@
             // 
             // portBox6
             // 
-            this.portBox6.Location = new System.Drawing.Point(316, 160);
+            this.portBox6.Location = new System.Drawing.Point(70, 188);
             this.portBox6.MaxLength = 5;
             this.portBox6.Name = "portBox6";
             this.portBox6.Size = new System.Drawing.Size(59, 20);
@@ -272,7 +276,7 @@
             // 
             // portBox4
             // 
-            this.portBox4.Location = new System.Drawing.Point(316, 108);
+            this.portBox4.Location = new System.Drawing.Point(70, 136);
             this.portBox4.MaxLength = 5;
             this.portBox4.Name = "portBox4";
             this.portBox4.Size = new System.Drawing.Size(59, 20);
@@ -281,7 +285,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(258, 189);
+            this.label7.Location = new System.Drawing.Point(12, 217);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(52, 13);
             this.label7.TabIndex = 44;
@@ -290,7 +294,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(258, 215);
+            this.label8.Location = new System.Drawing.Point(12, 243);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(52, 13);
             this.label8.TabIndex = 43;
@@ -298,7 +302,7 @@
             // 
             // portBox8
             // 
-            this.portBox8.Location = new System.Drawing.Point(316, 212);
+            this.portBox8.Location = new System.Drawing.Point(70, 240);
             this.portBox8.MaxLength = 5;
             this.portBox8.Name = "portBox8";
             this.portBox8.Size = new System.Drawing.Size(59, 20);
@@ -307,7 +311,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(258, 241);
+            this.label9.Location = new System.Drawing.Point(12, 269);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(52, 13);
             this.label9.TabIndex = 41;
@@ -315,7 +319,7 @@
             // 
             // portBox9
             // 
-            this.portBox9.Location = new System.Drawing.Point(316, 238);
+            this.portBox9.Location = new System.Drawing.Point(70, 266);
             this.portBox9.MaxLength = 5;
             this.portBox9.Name = "portBox9";
             this.portBox9.Size = new System.Drawing.Size(59, 20);
@@ -323,7 +327,7 @@
             // 
             // portBox10
             // 
-            this.portBox10.Location = new System.Drawing.Point(316, 264);
+            this.portBox10.Location = new System.Drawing.Point(70, 292);
             this.portBox10.MaxLength = 5;
             this.portBox10.Name = "portBox10";
             this.portBox10.Size = new System.Drawing.Size(59, 20);
@@ -332,7 +336,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(258, 267);
+            this.label10.Location = new System.Drawing.Point(12, 295);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(58, 13);
             this.label10.TabIndex = 38;
@@ -340,37 +344,17 @@
             // 
             // portBox7
             // 
-            this.portBox7.Location = new System.Drawing.Point(316, 186);
+            this.portBox7.Location = new System.Drawing.Point(70, 214);
             this.portBox7.MaxLength = 5;
             this.portBox7.Name = "portBox7";
             this.portBox7.Size = new System.Drawing.Size(59, 20);
             this.portBox7.TabIndex = 37;
-            // 
-            // toolStripProgressBar1
-            // 
-            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
-            this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 16);
-            this.toolStripProgressBar1.Click += new System.EventHandler(this.toolStripProgressBar1_Click);
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(13, 137);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.ShortcutsEnabled = false;
-            this.textBox1.Size = new System.Drawing.Size(120, 39);
-            this.textBox1.TabIndex = 45;
-            this.textBox1.TabStop = false;
-            this.textBox1.Text = "awdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\r\nawdddddddddddddddddddddddddddddddd" +
-    "\r\ndwawdawdaw\r\nawdawdawd\r\nawd\r\nawda\r\nwd\r\nawd\r\naw\r\ndaw\r\nd";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(706, 403);
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.portBox8);
@@ -448,7 +432,6 @@
         private System.Windows.Forms.TextBox portBox7;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
-        private System.Windows.Forms.TextBox textBox1;
     }
 }
 

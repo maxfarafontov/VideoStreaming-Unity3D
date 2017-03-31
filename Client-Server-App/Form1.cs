@@ -19,7 +19,7 @@ namespace Client_Server_App
     {
 
         // --------------Variables----------------//
-        String message = "";
+        //String message = "";
         bool stopServer = false;
         bool send = false;
         string logMessage = "";
@@ -32,21 +32,12 @@ namespace Client_Server_App
         //----Таймер для обновления окошек лога--//
         System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
         int timerCounter = 0;
-        //----------------------------------------//
-
-        // --------------End----------------------//
-
-        private void updateLabels()
-        {
-            
-        }
-
         
+        // --------------End----------------------//
 
         public Form1()
         {
             InitializeComponent();
-
         }
 
         void timer_Tick(object sender, EventArgs e)
@@ -64,40 +55,42 @@ namespace Client_Server_App
         {
             //thread = new Thread(socketTask); // Объявляем поток для запуска сервера
 
-            //Default ports
+            //Default variables
             portBox1.Text = "11100";
             portBox2.Text = "11101";
             portBox3.Text = "11102";
-            //textBox0.Text = "127.0.0.1";
+            portBox4.Text = "11103";
+            portBox5.Text = "11104";
+            portBox6.Text = "11105";
+            portBox7.Text = "11106";
+            portBox8.Text = "11107";
+            portBox9.Text = "11108";
+            portBox10.Text = "11109";
             textBox0.Text = "localhost";
             btnDisconnect.Enabled = false;
             //this.Invoke(new updateInfo(updateLabels), new object[] { });
         }
 
         //Start Client Button
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Thread socketServer = new Thread(socketTask);
-            socketServer.Start();
+        //private void button1_Click(object sender, EventArgs e)
+        //{
+        //    Thread socketServer = new Thread(socketTask);
+        //    socketServer.Start();
 
-            timer.Interval = 1000; //интервал между срабатываниями 1000 миллисекунд
-            timer.Tick += new EventHandler(timer_Tick); //подписываемся на события Tick
-            timer.Start();
+        //    timer.Interval = 1000; //интервал между срабатываниями 1000 миллисекунд
+        //    timer.Tick += new EventHandler(timer_Tick); //подписываемся на события Tick
+        //    timer.Start();
 
+        //}
 
-            
-        }
         //Stop Button
-        private void button2_Click(object sender, EventArgs e)
-        {
-
+        //private void button2_Click(object sender, EventArgs e)
+        //{
             //Stop Thread
-            socketServer.stopServer();
+        //    socketServer.stopServer();
             //thread.Abort();
             //thread.Join(500);
-
-
-        }
+        //}
 
         //this.Invoke(new updateInfo(updateLabels), new object[] { });
         private void button3_Click(object sender, EventArgs e)
@@ -114,10 +107,12 @@ namespace Client_Server_App
         // Client Start
         private void btnConnect_Click(object sender, EventArgs e)
         {
+
             Thread socketClient = new Thread(socketClientThread);
             socketClient.Start();
         }
-
+        
+        // Client Stop
         private void btnDisconnect_Click(object sender, EventArgs e)
         {
             stopServer = true;
@@ -126,13 +121,11 @@ namespace Client_Server_App
 
         private void SendMessageFromSocket(int port)
         {
-
-            
-            BeginInvoke(new MethodInvoker(delegate
-            {
-                toolStripProgressBar1.Value = 20;
-                btnConnect.Enabled = false;
-            }));
+            BeginInvoke(new MethodInvoker(
+                delegate {
+                    toolStripProgressBar1.Value = 20;
+                    btnConnect.Enabled = false;
+                }));
 
             Socket sender;
             string localHost = "localhost";
@@ -143,11 +136,11 @@ namespace Client_Server_App
             int bytesRec = 0;
             
             // берем значение из textBox с адресом машины
-            BeginInvoke(new MethodInvoker(delegate
-            {
-                toolStripProgressBar1.Value = 50;
-                //localHost = textBox0.Text;
-            }));
+            BeginInvoke(new MethodInvoker(
+                delegate {
+                    toolStripProgressBar1.Value = 50;
+                    //localHost = textBox0.Text;
+                }));
             ////
 
             try
@@ -270,9 +263,6 @@ namespace Client_Server_App
             checkPortBox(e);
         }
 
-        private void toolStripProgressBar1_Click(object sender, EventArgs e)
-        {
-
-        }
+        
     }
 }
