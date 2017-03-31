@@ -121,8 +121,7 @@ namespace Client_Server_App
 
         private void SendMessageFromSocket(int port)
         {
-            BeginInvoke(new MethodInvoker(
-                delegate {
+            BeginInvoke(new MethodInvoker(delegate {
                     toolStripProgressBar1.Value = 20;
                     btnConnect.Enabled = false;
                 }));
@@ -136,8 +135,7 @@ namespace Client_Server_App
             int bytesRec = 0;
             
             // берем значение из textBox с адресом машины
-            BeginInvoke(new MethodInvoker(
-                delegate {
+            BeginInvoke(new MethodInvoker(delegate {
                     toolStripProgressBar1.Value = 50;
                     //localHost = textBox0.Text;
                 }));
