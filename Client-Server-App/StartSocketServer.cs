@@ -9,7 +9,7 @@ namespace Client_Server_App
     public class StartSocketServer
     {
         private String logMessage = "";
-        private String message;
+       
         private bool checkEnd = true;
 
         public void startServer(int port)
@@ -32,9 +32,8 @@ namespace Client_Server_App
             while (checkEnd)
             {
                 Console.WriteLine("Ожидаем соединение через порт ", port," : ", ipEndPoint);
-                message = "Ожидаем соединение через порт " + port + " : ";
-                logMessage += message += ipEndPoint;
-
+                logMessage += "Ожидаем соединение через порт " + port + " : " + ipEndPoint;
+               
                 // Программа приостанавливается, ожидая входящее соединение
                 Socket handler = sListener.Accept();
                 string data = null;
@@ -48,12 +47,10 @@ namespace Client_Server_App
 
                 // Показываем данные на консоли
                 Console.Write("Полученный текст: " + data + "\n\n");
-                message = "Полученный текст: " + data + "\n\n";
-                logMessage += message;
+                logMessage += "Полученный текст: " + data + "\n\n";
 
-                // Отправляем ответ клиенту\
-                string reply = "Спасибо за запрос в " + data.Length.ToString()
-                        + " символов";
+                // Отправляем ответ клиенту
+                string reply = "Спасибо за запрос в " + data.Length.ToString() + " символов";
                 byte[] msg = Encoding.UTF8.GetBytes(reply);
                 handler.Send(msg);
 
