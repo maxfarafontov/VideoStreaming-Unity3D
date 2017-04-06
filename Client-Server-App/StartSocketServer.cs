@@ -8,75 +8,66 @@ namespace Client_Server_App
 {
     public class StartSocketServer
     {
-        private String logMessage = "";
-        private String message;
-        private bool checkEnd = true;
+        private String GetHostEntryAddr = "localhost";
+        private int serverPort = 11100;
+        private Socket handler;
+        private Socket sListener;
 
-        public void startServer(int port)
+        private byte[] testMsg;
+       
+        private bool stopSocket = false;
+        private String status = "";
+
+
+        public StartSocketServer()
         {
-            string ipServer = "localhost";
+            startSocket();
+        }
 
-            // Устанавливаем для сокета локальную конечную точку
-            IPHostEntry ipHost = Dns.GetHostEntry(ipServer);
+        public void startSocket()
+        {
+            IPHostEntry ipHost = Dns.GetHostEntry(GetHostEntryAddr);
             IPAddress ipAddr = ipHost.AddressList[0];
-            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, port);
-            
-            // Создаем сокет Tcp/Ip
-            Socket sListener = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, serverPort);
 
-            // Назначаем сокет локальной конечной точке и слушаем входящие сокеты
-            sListener.Bind(ipEndPoint);
-            sListener.Listen(10);
+            sListener = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 
-            // Начинаем слушать соединения
-            while (checkEnd)
+            try
             {
-                Console.WriteLine("Ожидаем соединение через порт ", port," : ", ipEndPoint);
-                message = "Ожидаем соединение через порт " + port + " : ";
-                logMessage += message += ipEndPoint;
+                sListener.Bind(ipEndPoint);
+                sListener.Listen(10);
+                status = "Ожидание подключения";
+                handler = sListener.Accept();
 
-                // Программа приостанавливается, ожидая входящее соединение
-                Socket handler = sListener.Accept();
-                string data = null;
-
-                // Мы дождались клиента, пытающегося с нами соединиться
-
-                byte[] bytes = new byte[1024];
-                int bytesRec = handler.Receive(bytes);
-
-                data += Encoding.UTF8.GetString(bytes, 0, bytesRec);
-
-                // Показываем данные на консоли
-                Console.Write("Полученный текст: " + data + "\n\n");
-                message = "Полученный текст: " + data + "\n\n";
-                logMessage += message;
-
-                // Отправляем ответ клиенту\
-                string reply = "Спасибо за запрос в " + data.Length.ToString()
-                        + " символов";
-                byte[] msg = Encoding.UTF8.GetBytes(reply);
-                handler.Send(msg);
-
-                if ((data.IndexOf("<TheEnd>") > -1) && checkEnd)
+                while (!stopSocket)
                 {
-                    Console.WriteLine("Сервер завершил соединение с клиентом.");
-                    break;
+                    status = "Подключено";
+                    testMsg = Encoding.UTF8.GetBytes("\nПодключено\n");
+                    handler.Send(testMsg);
                 }
 
+                status = "Отключено";
                 handler.Shutdown(SocketShutdown.Both);
                 handler.Close();
-            }
-            
-        }
 
+            }
+            catch (SocketException)
+            {
+
+            }
+            finally
+            {
+
+            }
+
+        }
         public void stopServer()
         {
-            checkEnd = false;
+            stopSocket = false;
         }
-        public String recieveLogMessage()
+        public String getStatusServer()
         {
-            return logMessage;
+            return status;
         }
-
     }
 }

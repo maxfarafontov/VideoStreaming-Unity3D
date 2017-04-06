@@ -65,8 +65,14 @@
             this.portBox10 = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.portBox7 = new System.Windows.Forms.TextBox();
+            this.statusStrip2 = new System.Windows.Forms.StatusStrip();
+            this.statusServerLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripProgressBar2 = new System.Windows.Forms.ToolStripProgressBar();
+            this.btn_start_server = new System.Windows.Forms.Button();
+            this.btn_stop_server = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.statusStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
             // timer1
@@ -121,7 +127,7 @@
             // 
             // btnConnect
             // 
-            this.btnConnect.Location = new System.Drawing.Point(149, 30);
+            this.btnConnect.Location = new System.Drawing.Point(149, 58);
             this.btnConnect.Name = "btnConnect";
             this.btnConnect.Size = new System.Drawing.Size(75, 23);
             this.btnConnect.TabIndex = 18;
@@ -146,7 +152,7 @@
             // 
             // btnDisconnect
             // 
-            this.btnDisconnect.Location = new System.Drawing.Point(149, 58);
+            this.btnDisconnect.Location = new System.Drawing.Point(149, 86);
             this.btnDisconnect.Name = "btnDisconnect";
             this.btnDisconnect.Size = new System.Drawing.Size(75, 23);
             this.btnDisconnect.TabIndex = 24;
@@ -157,8 +163,8 @@
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.statusLabel,
-            this.toolStripProgressBar1});
+            this.toolStripProgressBar1,
+            this.statusLabel});
             this.statusStrip1.Location = new System.Drawing.Point(0, 381);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(706, 22);
@@ -350,11 +356,57 @@
             this.portBox7.Size = new System.Drawing.Size(59, 20);
             this.portBox7.TabIndex = 37;
             // 
+            // statusStrip2
+            // 
+            this.statusStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripProgressBar2,
+            this.statusServerLabel});
+            this.statusStrip2.Location = new System.Drawing.Point(0, 359);
+            this.statusStrip2.Name = "statusStrip2";
+            this.statusStrip2.Size = new System.Drawing.Size(706, 22);
+            this.statusStrip2.SizingGrip = false;
+            this.statusStrip2.TabIndex = 45;
+            this.statusStrip2.Text = "statusStrip2";
+            // 
+            // statusServerLabel
+            // 
+            this.statusServerLabel.Name = "statusServerLabel";
+            this.statusServerLabel.Size = new System.Drawing.Size(71, 17);
+            this.statusServerLabel.Text = "StatusServer";
+            // 
+            // toolStripProgressBar2
+            // 
+            this.toolStripProgressBar2.Name = "toolStripProgressBar2";
+            this.toolStripProgressBar2.Size = new System.Drawing.Size(100, 16);
+            // 
+            // btn_start_server
+            // 
+            this.btn_start_server.Location = new System.Drawing.Point(292, 58);
+            this.btn_start_server.Name = "btn_start_server";
+            this.btn_start_server.Size = new System.Drawing.Size(75, 23);
+            this.btn_start_server.TabIndex = 46;
+            this.btn_start_server.Text = "Start";
+            this.btn_start_server.UseVisualStyleBackColor = true;
+            this.btn_start_server.Click += new System.EventHandler(this.btn_start_server_Click);
+            // 
+            // btn_stop_server
+            // 
+            this.btn_stop_server.Location = new System.Drawing.Point(292, 86);
+            this.btn_stop_server.Name = "btn_stop_server";
+            this.btn_stop_server.Size = new System.Drawing.Size(75, 23);
+            this.btn_stop_server.TabIndex = 47;
+            this.btn_stop_server.Text = "Stop";
+            this.btn_stop_server.UseVisualStyleBackColor = true;
+            this.btn_stop_server.Click += new System.EventHandler(this.btn_stop_server_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(706, 403);
+            this.Controls.Add(this.btn_stop_server);
+            this.Controls.Add(this.btn_start_server);
+            this.Controls.Add(this.statusStrip2);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.portBox8);
@@ -393,6 +445,8 @@
             this.statusStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.statusStrip2.ResumeLayout(false);
+            this.statusStrip2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -432,6 +486,11 @@
         private System.Windows.Forms.TextBox portBox7;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
+        private System.Windows.Forms.StatusStrip statusStrip2;
+        private System.Windows.Forms.Button btn_start_server;
+        private System.Windows.Forms.Button btn_stop_server;
+        private System.Windows.Forms.ToolStripStatusLabel statusServerLabel;
+        private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar2;
     }
 }
 
